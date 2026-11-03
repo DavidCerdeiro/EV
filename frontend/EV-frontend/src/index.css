@@ -82,6 +82,13 @@ html, body, #root {
      ========================================= */
   .ev-chat-container {
     @apply w-full max-w-2xl h-40 overflow-y-auto text-center px-4;
+    
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+  }
+
+  .ev-chat-container::-webkit-scrollbar {
+    display: none;
   }
 
   .ev-chat-text-idle {

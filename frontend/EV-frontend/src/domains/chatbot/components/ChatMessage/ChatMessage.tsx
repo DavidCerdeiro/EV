@@ -1,8 +1,16 @@
+import { useEffect, useRef } from 'react';
 import { CHAT_PHASES, type ChatMessageProps } from "./types";
 
 export function ChatMessage({ phase, text = '' }: ChatMessageProps) {
-  
-  // Función para determinar qué mostrar según la fase
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll automático hacia abajo cuando cambia el texto o la fase
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [text, phase]);
+
   const renderContent = () => {
     switch (phase) {
       case CHAT_PHASES.IDLE:
@@ -20,6 +28,7 @@ export function ChatMessage({ phase, text = '' }: ChatMessageProps) {
 
   return (
     <div 
+      ref={containerRef}
       aria-live="assertive" 
       className="ev-chat-container"
     >

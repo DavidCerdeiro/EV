@@ -19,6 +19,7 @@ export function App() {
   const [chatPhase, setChatPhase] = useState<ChatPhase>(CHAT_PHASES.IDLE);
   const [isOnline] = useState(true);
   const [aiResponse, setAiResponse] = useState<string>('');
+  const [spokenText, setSpokenText] = useState<string>('');
   const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice[]>([]);
 
   // Este useEffect "caza" las voces de alta calidad en cuanto Edge las descarga
@@ -81,10 +82,30 @@ export function App() {
       || availableVoices.find(voice => voice.lang.includes('es') && voice.name.includes('Natural')) 
       || availableVoices.find(voice => voice.lang.includes('es')) 
       || null;
+
+      utterThis.onstart = () => {
+        setSpokenText('');
+      };
+      //Cuando la voz pasa a la siguiente palabra, actualizamos el texto que se está pronunciando
+      utterThis.onboundary = (event) => {
+        const text = data.model_response.substring(event.charIndex);
+        
+        const boundaryIndex = text.indexOf(' ');
+        
+        const endOfWord = boundaryIndex === -1 
+          ? data.model_response.length 
+          : event.charIndex + boundaryIndex;
+          
+        setSpokenText(data.model_response.substring(0, endOfWord));
+      };
+
       utterThis.onend = () => {
-        setMicState(MIC_STATES.READY);
-        setChatPhase(CHAT_PHASES.IDLE);
-        setAiResponse('');
+        setTimeout(() => {
+          setMicState(MIC_STATES.READY);
+          setChatPhase(CHAT_PHASES.IDLE);
+          setAiResponse('');
+          setSpokenText('');
+        }, 1500);
       };
 
       window.speechSynthesis.speak(utterThis);
@@ -128,7 +149,7 @@ export function App() {
 
   // 4. Determinar qué texto mostrar en pantalla
   const displayText = chatPhase === CHAT_PHASES.LISTENING ? transcript : 
-                      chatPhase === CHAT_PHASES.SPEAKING ? aiResponse : '';
+                      chatPhase === CHAT_PHASES.SPEAKING ? spokenText : '';
 
   return (
     <div className="ev-layout">
