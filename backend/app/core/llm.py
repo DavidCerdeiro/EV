@@ -1,12 +1,9 @@
 import os
 from langchain_groq import ChatGroq
 
-# Asegúrate de tener GROQ_API_KEY definida en tu entorno o archivo .env
-# LangChain detecta la variable GROQ_API_KEY automáticamente por debajo.
-
 def get_router_llm() -> ChatGroq:
     """
-    Llama 3 (70B): Modelo principal para decidir qué quiere hacer el usuario.
+    GPT OSS (120B): Principal model for routing and classification tasks.
     """
     return ChatGroq(
         model="openai/gpt-oss-120b",
@@ -16,7 +13,7 @@ def get_router_llm() -> ChatGroq:
 
 def get_assistant_llm() -> ChatGroq:
     """
-    Llama 3 (8B): Modelo rápido para resumir textos, formatear respuestas o tomar notas.
+    GPT OSS (20B): Fast model for general assistant tasks, optimized for speed and efficiency.
     """
     return ChatGroq(
         model="openai/gpt-oss-20b",
@@ -26,7 +23,7 @@ def get_assistant_llm() -> ChatGroq:
 
 def get_document_llm() -> ChatGroq:
     """
-    Mistral 8x7B (Mixtral): Especializado en ventanas de contexto grandes.
+    GPT OSS (120B): Model for document processing tasks, capable of handling larger contexts and complex queries.
     """
     return ChatGroq(
         model="openai/gpt-oss-120b",

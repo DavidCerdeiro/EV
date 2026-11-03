@@ -1,6 +1,7 @@
 from app.schemas.chat_schema import ChatResponse
 from app.core.llm import get_router_llm, get_assistant_llm, get_document_llm
 
+# This function takes a user message as input, processes it through the assistant LLM, and returns a structured response.
 def response_to_user(user_message: str) -> ChatResponse:
     system_prompt = (
         "Eres E.V., una interfaz de voz inteligente, directa y concisa. "
