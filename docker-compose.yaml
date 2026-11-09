@@ -20,15 +20,19 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./backend:/app
-    ports:
-      - "8000:8000"
     env_file:
       - .env
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
     depends_on:
       db_ev:
         condition: service_healthy
-
+  caddy:
+    image: caddy:2-alpine
+    ports:
+      - "8000:8000"
+    command: caddy reverse-proxy --from https://localhost:8000 --to http://backend_ev:8000 --internal-certs
+    depends_on:
+      - backend_ev
   frontend_ev:
     container_name: frontend_ev
     build:

@@ -24,18 +24,20 @@ El proyecto acaba de completar la **Fase 3: Integración de Sentidos**. El usuar
 *   **Orquestación:** Docker Compose.
 *   **IA & Agentes:** LangChain, Groq (GPT OSS (120B y 20B)).
 
-### 🛠️ Instalación y Uso (Fase 1)
+### 🛠️ Instalación y Uso
 
 1.  **Requisitos previos:** Asegúrate de tener Docker y Docker Compose instalados en tu sistema.
-2.  **Clonar y levantar servicios:**
+2.  **Configurar Variables de Entorno:** Crea tu archivo local de configuración a partir de la plantilla:
     ```bash
-    git clone [https://github.com/tu-usuario/asistente-ev.git](https://github.com/tu-usuario/asistente-ev.git)
-    cd asistente-ev
-    docker-compose up -d
+    cp .env.example .env
     ```
-    *Este comando orquesta tres servicios: frontend, backend y base de datos en la misma red*.
-3.  **Accesos:**
-    *   Interfaz Gráfica (UI): `http://localhost:3000`.
+    *Abre el archivo `.env` y rellena tus credenciales (ver sección "Configuración de Credenciales" más abajo).*
+3.  **Levantar servicios::**
+    ```bash
+    docker-compose up -d --build
+    ```
+4.  **Accesos y Certificado Local SSL:**
+    *   Interfaz Gráfica (UI): `http://localhost:3000`. ⚠️ Importante: Ve a esta URL primero. Tu navegador mostrará una alerta de "Conexión no privada". Esto es normal porque usamos un certificado local (vía Caddy) necesario para las integraciones de OAuth 2.0. Haz clic en Configuración avanzada > Continuar a localhost.
     *   Documentación API (Swagger): `http://localhost:8000/docs`.
 
 ### 🎨 Diseño y Accesibilidad (UX/UI)
