@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   db_ev:
     image: pgvector/pgvector:pg16
@@ -18,6 +17,8 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:8000:8000"
     volumes:
       - ./backend:/app
     env_file:
@@ -26,20 +27,14 @@ services:
     depends_on:
       db_ev:
         condition: service_healthy
-  caddy:
-    image: caddy:2-alpine
-    ports:
-      - "8000:8000"
-    command: caddy reverse-proxy --from https://localhost:8000 --to http://backend_ev:8000 --internal-certs
-    depends_on:
-      - backend_ev
+        
   frontend_ev:
     container_name: frontend_ev
     build:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "3000:5173"
+      - "127.0.0.1:3000:5173"
     volumes:
       - ./frontend/EV-frontend:/app
       - /app/node_modules

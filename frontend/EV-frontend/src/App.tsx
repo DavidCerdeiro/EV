@@ -54,7 +54,7 @@ export function App() {
       setChatPhase(CHAT_PHASES.THINKING);
       setAiResponse('');
       
-      const response = await fetch('http://localhost:8000/chat/response', {
+      const response = await fetch('http://127.0.0.1:8000/chat/response', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_message: userText }),
