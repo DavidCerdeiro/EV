@@ -20,5 +20,6 @@ async def get_response(chatRequest: ChatRequest):
     **Returns:**
     - An object `ChatResponse` with the response ready to be displayed.
     """
-    chat_response = response_to_user(user_message=chatRequest.user_message)
+    
+    chat_response = await response_to_user(user_message=chatRequest.user_message)
     return chat_response

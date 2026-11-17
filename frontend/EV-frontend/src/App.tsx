@@ -21,6 +21,7 @@ export function App() {
   const [aiResponse, setAiResponse] = useState<string>('');
   const [spokenText, setSpokenText] = useState<string>('');
   const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice[]>([]);
+  const [isConfigOpen, setIsConfigOpen] = useState(false);
 
   // Este useEffect "caza" las voces de alta calidad en cuanto Edge las descarga
   useEffect(() => {
@@ -40,7 +41,7 @@ export function App() {
     } else if (!listening && transcript) {
       // Si se apagó y hay transcripción, enviamos al backend
       setMicState(MIC_STATES.READY);
-      sendToBackend(transcript);
+      sendUserRequest(transcript);
     } else if (!listening && !transcript && chatPhase === CHAT_PHASES.LISTENING) {
       // Si se apagó pero no se detectó voz, volvemos a reposo
       setMicState(MIC_STATES.READY);
@@ -49,7 +50,7 @@ export function App() {
   }, [listening]);
 
   // 2. Función dinámica para enviar el texto transcrito
-  const sendToBackend = async (userText: string) => {
+  const sendUserRequest = async (userText: string) => {
     try {
       setChatPhase(CHAT_PHASES.THINKING);
       setAiResponse('');
@@ -127,22 +128,24 @@ export function App() {
       setMicState(MIC_STATES.READY);
       setChatPhase(CHAT_PHASES.IDLE);
       setAiResponse('');
+      setSpokenText('');
       return;
     }
 
     if (!listening) {
-      resetTranscript(); // Limpiamos transcripciones anteriores
+      resetTranscript(); 
       setAiResponse('');
+      setSpokenText('');
       SpeechRecognition.startListening({ continuous: false, language: 'es-ES' });
     } else {
       SpeechRecognition.stopListening(); // Apagar el micro dispara el useEffect
     }
   };
 
-  const openConfigModal = () => {
-    alert('Abriendo el modal del dominio de configuration');
+  const toggleConfigModal = () => {
+    setIsConfigOpen(!isConfigOpen);
   };
-
+  
   if (!browserSupportsSpeechRecognition) {
     return <div className="text-symbiote-red p-8 flex justify-center items-center h-screen">Tu navegador no soporta la Web Speech API. Abre la app en Chrome o Edge.</div>;
   }
@@ -162,7 +165,10 @@ export function App() {
         onMicClick={handleMicClick} 
       />
       
-      <RightSidebar onConfigClick={openConfigModal} />
+      <RightSidebar 
+        isConfigOpen={isConfigOpen} 
+        onConfigToggle={toggleConfigModal} 
+      />
     </div>
   );
 }

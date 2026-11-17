@@ -132,4 +132,92 @@ html, body, #root {
   .ev-icon-btn {
     @apply p-3 rounded-xl text-symbiote-muted hover:text-symbiote-white hover:bg-symbiote-surface transition-colors duration-200 outline-none focus:ring-1 focus:ring-symbiote-muted flex items-center justify-center gap-2;
   }
+
+  /* =========================================
+   ESTILOS DEL MENÚ DE CONFIGURACIÓN
+   ========================================= */
+
+  .ev-config-overlay {
+    @apply fixed inset-0 bg-black/50 z-40;
+  }
+
+  .ev-config-panel {
+    @apply fixed top-0 right-0 h-full w-80 bg-black border-l border-symbiote-red/30 p-8 transform transition-transform duration-300 ease-in-out z-50 flex flex-col shadow-[-10px_0_30px_rgba(229,0,0,0.05)];
+  }
+
+  .ev-config-header {
+    @apply flex justify-between items-center mb-10;
+  }
+
+  .ev-config-title {
+    @apply text-xl font-bold text-white tracking-wide;
+  }
+
+  .ev-config-close-btn {
+    @apply text-symbiote-red hover:text-white transition-colors;
+  }
+
+  .ev-config-form {
+    @apply flex flex-col space-y-8;
+  }
+
+  .ev-input-group {
+    @apply flex flex-col space-y-2;
+  }
+
+  .ev-label {
+    @apply text-sm text-white/70 font-medium;
+  }
+
+  .ev-input {
+    @apply bg-black border border-symbiote-red/40 rounded-md p-3 text-white focus:outline-none focus:border-symbiote-red focus:ring-1 focus:ring-symbiote-red transition-all placeholder:text-white/20;
+  }
+
+  .ev-config-footer {
+    @apply mt-auto pt-8;
+  }
+
+  .ev-btn-primary {
+    @apply w-full bg-symbiote-red/10 border border-symbiote-red text-white py-3 px-4 rounded-md hover:bg-symbiote-red hover:text-black transition-colors font-bold tracking-wide;
+  }
+
+  /* =========================================
+   ESTILOS DE MODALES Y COMPONENTES EXTRA
+   ========================================= */
+
+  .ev-modal-backdrop {
+    @apply fixed inset-0 z-60 flex items-center justify-center p-4;
+  }
+
+  .ev-modal-overlay {
+    @apply absolute inset-0 bg-black/80 backdrop-blur-sm;
+  }
+
+  .ev-modal-content {
+    @apply relative bg-black border border-symbiote-red/40 p-6 rounded-lg shadow-[0_0_30px_rgba(229,0,0,0.15)] max-w-sm w-full;
+  }
+
+  .ev-modal-title {
+    @apply text-xl font-bold text-white mb-3;
+  }
+
+  .ev-modal-text {
+    @apply text-white/70 text-sm mb-6;
+  }
+
+  .ev-modal-actions {
+    @apply flex justify-end space-x-3;
+  }
+
+  .ev-btn-secondary {
+    @apply px-4 py-2 text-sm text-white/70 hover:text-white transition-colors disabled:opacity-50;
+  }
+
+  .ev-btn-danger {
+    @apply px-4 py-2 text-sm bg-symbiote-red text-black font-bold rounded hover:bg-[#ff1a1a] transition-colors disabled:opacity-50;
+  }
+
+  .ev-icon-btn {
+    @apply p-2 text-white/50 hover:text-symbiote-red transition-colors disabled:opacity-50;
+  }
 }

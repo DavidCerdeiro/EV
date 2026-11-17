@@ -2,9 +2,10 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import chat_router, auth_router
+from app.api import chat_router, auth_router, user_router
 from app.core.config import settings
 from app.core.database import engine, Base
+import langchain
 
 # Lifespan event to create database tables on startup
 @asynccontextmanager
@@ -30,3 +31,4 @@ app.add_middleware(
 # Registrar los enrutadores
 app.include_router(chat_router.router)
 app.include_router(auth_router.router)
+app.include_router(user_router.router)

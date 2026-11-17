@@ -15,5 +15,9 @@ dependencies = [
     "langchain-groq",
     "sqlalchemy",
     "psycopg[binary]",
-    "requests"
+    "requests",
+    "geopy",
+    "num2words",
+    "langgraph",
+    "langchain"
 ]

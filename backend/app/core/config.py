@@ -20,7 +20,10 @@ class Settings(BaseSettings):
 
     # GitHub Token
     GITHUB_TOKEN: str
-    
+
+    # Weather API Key
+    GOOGLE_WEATHER_API_KEY: str 
+       
     # CORS & URLs configuration
     FRONTEND_URL: str
     BACKEND_BASE_URL: str
