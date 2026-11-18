@@ -8,7 +8,7 @@ general_agent = create_agent(
     model=get_assistant_llm()
 )
 
-def general_node(state: dict):
+async def general_node(state: dict):
     name = state.get("user_name", "Usuario")
     
     dinamic_prompt = build_general_prompt(name)
@@ -16,7 +16,7 @@ def general_node(state: dict):
     
     messages_for_agent = [system_msg] + state["messages"]
     
-    response = general_agent.invoke({"messages": messages_for_agent})
+    response = await general_agent.ainvoke({"messages": messages_for_agent})
     
     nuevo_mensaje = response["messages"][-1]
     

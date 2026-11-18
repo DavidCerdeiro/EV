@@ -9,7 +9,7 @@ class Route(BaseModel):
         description="El agente encargado de resolver la petición del usuario."
     )
 
-def router_agent(state: dict) -> Route:
+async def router_agent(state: dict) -> Route:
     """
     Determina qué agente debe manejar la petición del usuario.
     """
@@ -24,6 +24,6 @@ def router_agent(state: dict) -> Route:
     messages = [system_prompt] + state["messages"]
     structured_llm = get_router_llm().with_structured_output(Route)
     
-    response = structured_llm.invoke(messages)
+    response = await structured_llm.ainvoke(messages)
 
     return response.next_agent

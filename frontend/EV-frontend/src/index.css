@@ -74,7 +74,7 @@ html, body, #root {
   }
 
   .ev-mic-speaking {
-    @apply bg-transparent border-2 border-symbiote-red text-symbiote-red hover:bg-symbiote-red hover:text-symbiote-white focus:ring-symbiote-red rounded-md!; 
+    @apply bg-transparent border-2 border-symbiote-red text-symbiote-red hover:bg-symbiote-red hover:text-symbiote-white focus:ring-symbiote-red !rounded-md; 
   }
 
   /* =========================================

@@ -40,7 +40,7 @@ export function App() {
       setChatPhase(CHAT_PHASES.LISTENING);
     } else if (!listening && transcript) {
       // Si se apagó y hay transcripción, enviamos al backend
-      setMicState(MIC_STATES.READY);
+      setMicState(MIC_STATES.IA_SPEAKING);
       sendUserRequest(transcript);
     } else if (!listening && !transcript && chatPhase === CHAT_PHASES.LISTENING) {
       // Si se apagó pero no se detectó voz, volvemos a reposo

@@ -10,7 +10,7 @@ weather_agent = create_agent(
     tools=WEATHER_TOOLS
 )
 
-def weather_node(state: dict):
+async def weather_node(state: dict):
     name = state.get("user_name", "Usuario")
     
     dinamic_prompt = build_weather_prompt(name)
@@ -18,7 +18,7 @@ def weather_node(state: dict):
     
     messages_for_agent = [system_msg] + state["messages"]
     
-    response = weather_agent.invoke({"messages": messages_for_agent})
+    response = await weather_agent.ainvoke({"messages": messages_for_agent})
     
     nuevo_mensaje = response["messages"][-1]
     
