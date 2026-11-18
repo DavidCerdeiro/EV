@@ -10,5 +10,6 @@ VOICE_RULES = (
     "y no inventes información."
 )
 
-def compose_prompt(*specific_parts: str) -> str:
-    return "\n\n".join([VOICE_RULES, *specific_parts])
+def compose_prompt(user_name: str, *specific_parts: str) -> str:
+    contexto_usuario = f"El usuario se llama {user_name}. Háblale por su nombre de vez en cuando de forma natural."
+    return "\n\n".join([VOICE_RULES, contexto_usuario, *specific_parts])

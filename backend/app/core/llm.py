@@ -3,10 +3,10 @@ from langchain_groq import ChatGroq
 
 def get_router_llm() -> ChatGroq:
     """
-    GPT OSS (120B): Principal model for routing and classification tasks.
+    GPT OSS (20B): Principal model for routing and classification tasks.
     """
     return ChatGroq(
-        model="openai/gpt-oss-120b",
+        model="openai/gpt-oss-20b",
         temperature=0.1,
         max_tokens=1024
     )
